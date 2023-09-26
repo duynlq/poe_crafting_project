@@ -4,9 +4,9 @@ ui <- fluidPage(
   titlePanel("Duy's POE Crafter"),
   sidebarLayout(
     sidebarPanel(
-      width=4,
-      actionButton("roll_button", 
-                   label = tags$img(src = "https://playerverse.com/wp-content/uploads/2021/08/orb-of-alteration.png", 
+      width = 4,
+      actionButton("roll_button",
+                   label = tags$img(src = "https://playerverse.com/wp-content/uploads/2021/08/orb-of-alteration.png",
                                     width = 50, height = 50)),
       uiOutput("roll_info")
     ),
@@ -18,21 +18,51 @@ ui <- fluidPage(
 )
 
 server <- function(input, output) {
-  Roll <- 1:6
-  Weight <- c(13000, 8000, 6000, 11000, 3500, 4000)
-  Prob <- c(0.2857, 0.1758, 0.1319, 0.2418, 0.0769, 0.0879)
+  Roll <- 1:19 # Updated to 19 rolls
+  Weight <- c(
+    # # to maximum Life ----
+    rep((1000/(9-3+1)), (9-3+1)),
+    rep((1000/(19-10+1)), (19-10+1)),
+    rep((1000/(29-20+1)), (29-20+1)),
+    rep((1000/(39-30+1)), (39-30+1)),
+    rep((1000/(49-40+1)), (49-40+1)),
+    rep((1000/(59-50+1)), (59-50+1)),
+    rep((1000/(69-60+1)), (69-60+1)),
+    rep((1000/(79-70+1)), (79-70+1)),
+    rep((1000/(89-80+1)), (89-80+1)),
+    rep((1000/(99-90+1)), (99-90+1)),
+    rep((1000/(109-100+1)), (109-100+1)),
+    rep((1000/(119-110+1)), (119-110+1)),
+    rep((1000/(129-120+1)), (129-120+1))
+  #, 8000, 6000, 11000, 3500, 4000) # Updated weights
+  )
+  Prob <- Weight / sum(Weight)
   Cumulative <- cumsum(Prob)
   
   counter <- reactiveVal(0)
   
-  # Define custom roll names
-  custom_roll_names <- c(
-    "# to Maximum Life",
-    "#% Increased Armour",
-    "#% Increased Armour, #% Increased Stun and Block Recovery",
-    "#% To Armour",
-    "#% To Armour, To Maximum Life",
-    "Reflects # Physical Damage To Melee Attackers"
+  # Generate custom roll names dynamically
+  custom_roll_names <- c()
+  for (i in 3:9) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 10:19) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 20:29) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 30:39) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 40:49) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 50:59) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 60:69) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 70:79) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 80:89) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 90:99) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 100:109) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 110:119) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  for (i in 120:129) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  
+  custom_roll_names <- c(custom_roll_names#,
+                         #"#% Increased Armour",
+                         #"#% Increased Armour, #% Increased Stun and Block Recovery",
+                         #"#% To Armour",
+                         #"#% To Armour, To Maximum Life",
+                         #"Reflects # Physical Damage To Melee Attackers"
   )
   
   rolls_history <- c() # Store the history of rolls
@@ -61,7 +91,9 @@ server <- function(input, output) {
   output$roll_info <- renderUI({
     headers <- "<b>Prefix</b><span style='float:right;'><b>Weight</b></span>"
     rolls_info <- paste(custom_roll_names, "<span style='float:right;'>", Weight, "</span>")
-    HTML(paste("<p style='clear:both;'>You Used:", counter(), "Alts<br>", headers, "<br>", paste(rolls_info, collapse = "<br>"), "</p>"))
+    HTML(paste("<p style='clear:both;'>You Used:", counter(), "Alts<br>", 
+               #headers, "<br>", paste(rolls_info, collapse = "<br>"), 
+               "</p>"))
   })
 }
 
