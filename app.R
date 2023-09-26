@@ -33,9 +33,28 @@ server <- function(input, output) {
     rep((1000/(99-90+1)), (99-90+1)),
     rep((1000/(109-100+1)), (109-100+1)),
     rep((1000/(119-110+1)), (119-110+1)),
-    rep((1000/(129-120+1)), (129-120+1))
-  #, 8000, 6000, 11000, 3500, 4000) # Updated weights
-  )
+    rep((1000/(129-120+1)), (129-120+1)),
+    # #% increased Armour ----
+    rep((1000/(26-15+1)), (26-15+1)),
+    rep((1000/(42-27+1)), (42-27+1)),
+    rep((1000/(55-43+1)), (55-43+1)),
+    rep((1000/(67-56+1)), (67-56+1)),
+    rep((1000/(79-68+1)), (79-68+1)),
+    rep((1000/(91-80+1)), (91-80+1)),
+    rep((1000/(100-92+1)), (100-92+1)),
+    rep((1000/(110-101+1)), (110-101+1))#,
+    # #% increased Armour, #% increased Stun and Block Recovery ----
+    # rep((1000/(13-6+1)), (13-6+1)),
+    # rep((1000/(20-14+1)), (20-14+1)),
+    # rep((1000/(26-21+1)), (26-21+1)),
+    # rep((1000/(32-27+1)), (32-27+1)),
+    # rep((1000/(38-33+1)), (38-33+1)),
+    # rep((1000/(42-39+1)), (42-39+1)),
+    
+    
+    
+    # 11000, 3500, 4000) # Updated weights
+  ) # End Weights ----
   Prob <- Weight / sum(Weight)
   Cumulative <- cumsum(Prob)
   
@@ -43,6 +62,7 @@ server <- function(input, output) {
   
   # Generate custom roll names dynamically
   custom_roll_names <- c()
+  # # to maximum Life ----
   for (i in 3:9) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
   for (i in 10:19) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
   for (i in 20:29) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
@@ -56,6 +76,21 @@ server <- function(input, output) {
   for (i in 100:109) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
   for (i in 110:119) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
   for (i in 120:129) { custom_roll_names <- c(custom_roll_names, paste0("+", i, " to maximum Life")) }
+  # #% increased Armour ----
+  for (i in 15:26) { custom_roll_names <- c(custom_roll_names, paste0(i, " % increased Armour")) }
+  for (i in 27:42) { custom_roll_names <- c(custom_roll_names, paste0(i, " % increased Armour")) }
+  for (i in 43:55) { custom_roll_names <- c(custom_roll_names, paste0(i, " % increased Armour")) }
+  for (i in 56:67) { custom_roll_names <- c(custom_roll_names, paste0(i, " % increased Armour")) }
+  for (i in 68:79) { custom_roll_names <- c(custom_roll_names, paste0(i, " % increased Armour")) }
+  for (i in 80:91) { custom_roll_names <- c(custom_roll_names, paste0(i, " % increased Armour")) }
+  for (i in 92:100) { custom_roll_names <- c(custom_roll_names, paste0(i, " % increased Armour")) }
+  for (i in 101:110) { custom_roll_names <- c(custom_roll_names, paste0(i, " % increased Armour")) }
+  # #% increased Armour, #% increased Stun and Block Recovery ----
+  #for (i in 6:13) { custom_roll_names <- c(custom_roll_names, paste0(i, " % increased Armour")) }
+  
+  
+  
+  
   
   custom_roll_names <- c(custom_roll_names#,
                          #"#% Increased Armour",
